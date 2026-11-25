@@ -16,6 +16,43 @@ document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
     /* =====================================================
+       0. LIGHT / DARK THEME TOGGLE
+    ===================================================== */
+    const themeToggle = document.getElementById("themeToggle");
+    const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+    function applyTheme(theme) {
+        const isDark = theme === "dark";
+        if (isDark) {
+            document.documentElement.setAttribute("data-theme", "dark");
+        } else {
+            document.documentElement.removeAttribute("data-theme");
+        }
+        if (themeMeta) {
+            themeMeta.setAttribute("content", isDark ? "#090e0b" : "#ffffff");
+        }
+        if (themeToggle) {
+            themeToggle.setAttribute("aria-pressed", String(isDark));
+            themeToggle.setAttribute("title", isDark ? "Ganti ke tema putih" : "Ganti ke tema gelap");
+        }
+    }
+
+    const savedTheme = localStorage.getItem("romusha_theme");
+    if (savedTheme === "dark") {
+        applyTheme("dark");
+    }
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", function () {
+            const isCurrentlyDark = document.documentElement.getAttribute("data-theme") === "dark";
+            const nextTheme = isCurrentlyDark ? "light" : "dark";
+            applyTheme(nextTheme);
+            localStorage.setItem("romusha_theme", nextTheme);
+        });
+    }
+
+
+    /* =====================================================
        1. NAVBAR STICKY & SCROLLSPY
     ===================================================== */
     const navbar = document.getElementById("navbar");
@@ -168,9 +205,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       4. GALLERY LIGHTBOX MODAL
+       4. GALLERY FILTER & LIGHTBOX MODAL (WITH SWIPE)
     ===================================================== */
     const galleryItems = document.querySelectorAll(".gallery-item");
+    const galleryFilterBtns = document.querySelectorAll(".gallery-filter-btn");
     const lightboxModal = document.getElementById("lightboxModal");
     const lightboxBackdrop = document.getElementById("lightboxBackdrop");
     const lightboxClose = document.getElementById("lightboxClose");
@@ -180,13 +218,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const lightboxCounter = document.getElementById("lightboxCounter");
     const lightboxPrev = document.getElementById("lightboxPrev");
     const lightboxNext = document.getElementById("lightboxNext");
+    const lightboxNav = document.querySelector(".lightbox-nav");
 
     // Build gallery data directly from DOM so captions stay in sync
-    const galleryData = Array.from(galleryItems).map(function (item) {
+    const allGalleryData = Array.from(galleryItems).map(function (item) {
         const img = item.querySelector("img");
         const cat = item.querySelector(".gallery-cat");
         const caption = item.querySelector(".gallery-caption");
         return {
+            el: item,
+            category: item.getAttribute("data-category") || "all",
             src: img ? img.getAttribute("src") : "",
             alt: img ? img.getAttribute("alt") : "",
             cat: cat ? cat.textContent.trim() : "",
@@ -194,31 +235,58 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     });
 
+    let activeGalleryData = allGalleryData.slice();
     let currentPhotoIndex = 0;
     let lastFocusedBeforeLightbox = null;
     let isSingleLightboxMode = false;
-    const lightboxNav = document.querySelector(".lightbox-nav");
+
+    function applyGalleryFilter(filter) {
+        activeGalleryData = [];
+        allGalleryData.forEach(function (entry) {
+            const match = filter === "all" || entry.category === filter;
+            entry.el.classList.toggle("is-hidden", !match);
+            if (match) {
+                entry.el.classList.add("revealed");
+                activeGalleryData.push(entry);
+            }
+        });
+    }
+
+    galleryFilterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            const filter = btn.getAttribute("data-filter") || "all";
+            galleryFilterBtns.forEach(function (b) {
+                const active = b === btn;
+                b.classList.toggle("active", active);
+                b.setAttribute("aria-selected", String(active));
+            });
+            applyGalleryFilter(filter);
+        });
+    });
 
     function updateLightboxContent(index) {
-        if (!galleryData[index]) return;
+        if (!activeGalleryData[index]) return;
         currentPhotoIndex = index;
 
-        const data = galleryData[index];
+        const data = activeGalleryData[index];
         if (lightboxImg) {
             lightboxImg.src = data.src;
             lightboxImg.alt = data.alt;
         }
         if (lightboxCat) lightboxCat.textContent = data.cat;
         if (lightboxTitle) lightboxTitle.textContent = data.title;
-        if (lightboxCounter) lightboxCounter.textContent = `${index + 1} / ${galleryData.length}`;
+        if (lightboxCounter) lightboxCounter.textContent = `${index + 1} / ${activeGalleryData.length}`;
     }
 
-    function openLightbox(index) {
+    function openLightboxForElement(el) {
         if (!lightboxModal) return;
+        const idx = activeGalleryData.findIndex(function (entry) {
+            return entry.el === el;
+        });
         isSingleLightboxMode = false;
         if (lightboxNav) lightboxNav.style.display = "";
         lastFocusedBeforeLightbox = document.activeElement;
-        updateLightboxContent(index);
+        updateLightboxContent(idx >= 0 ? idx : 0);
         lightboxModal.classList.add("active");
         lightboxModal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
@@ -253,28 +321,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function prevPhoto() {
-        if (isSingleLightboxMode) return;
-        const newIndex = (currentPhotoIndex - 1 + galleryData.length) % galleryData.length;
+        if (isSingleLightboxMode || activeGalleryData.length === 0) return;
+        const newIndex = (currentPhotoIndex - 1 + activeGalleryData.length) % activeGalleryData.length;
         updateLightboxContent(newIndex);
     }
 
     function nextPhoto() {
-        if (isSingleLightboxMode) return;
-        const newIndex = (currentPhotoIndex + 1) % galleryData.length;
+        if (isSingleLightboxMode || activeGalleryData.length === 0) return;
+        const newIndex = (currentPhotoIndex + 1) % activeGalleryData.length;
         updateLightboxContent(newIndex);
     }
 
     galleryItems.forEach(function (item) {
-        const idx = parseInt(item.getAttribute("data-index"), 10) || 0;
         item.addEventListener("click", function () {
-            openLightbox(idx);
+            openLightboxForElement(item);
         });
 
         // Accessibility: allow Enter and Space to open
         item.addEventListener("keydown", function (e) {
             if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                openLightbox(idx);
+                openLightboxForElement(item);
             }
         });
     });
@@ -283,6 +350,27 @@ document.addEventListener("DOMContentLoaded", function () {
     if (lightboxBackdrop) lightboxBackdrop.addEventListener("click", closeLightbox);
     if (lightboxPrev) lightboxPrev.addEventListener("click", prevPhoto);
     if (lightboxNext) lightboxNext.addEventListener("click", nextPhoto);
+
+    // Touch swipe navigation for mobile Lightbox
+    let touchStartX = 0;
+    let touchStartY = 0;
+    if (lightboxModal) {
+        lightboxModal.addEventListener("touchstart", function (e) {
+            if (!e.touches || e.touches.length !== 1) return;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        lightboxModal.addEventListener("touchend", function (e) {
+            if (isSingleLightboxMode || !e.changedTouches || e.changedTouches.length !== 1) return;
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            const dy = e.changedTouches[0].clientY - touchStartY;
+            if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+                if (dx < 0) nextPhoto();
+                else prevPhoto();
+            }
+        }, { passive: true });
+    }
 
     // Keyboard support for Lightbox
     window.addEventListener("keydown", function (e) {
@@ -346,6 +434,39 @@ document.addEventListener("DOMContentLoaded", function () {
         btnDownloadQris.addEventListener("click", function () {
             showToast("Poster QRIS sedang diunduh!");
         });
+    }
+
+    const btnShareSite = document.getElementById("btnShareSite");
+    if (btnShareSite) {
+        btnShareSite.addEventListener("click", function () {
+            const shareData = {
+                title: "ROMUSHA Road to Jannah",
+                text: "Mari ikut berbagi kebahagiaan bersama ROMUSHA Road to Jannah untuk adik-adik yatim & dhuafa.",
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                navigator.share(shareData).catch(function (err) {
+                    if (err && err.name !== "AbortError") {
+                        copyShareLink(shareData.url);
+                    }
+                });
+            } else {
+                copyShareLink(shareData.url);
+            }
+        });
+    }
+
+    function copyShareLink(url) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(function () {
+                showToast("Tautan website berhasil disalin — siap dibagikan!");
+            }).catch(function () {
+                showToast("Salin tautan ini: " + url);
+            });
+        } else {
+            showToast("Salin tautan ini: " + url);
+        }
     }
 
 

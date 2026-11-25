@@ -63,6 +63,90 @@
     --shadow-glow: 0 14px 40px rgba(5, 150, 105, 0.12);
 }
 
+/* Dark Theme Override (toggled via button in navbar) */
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --bg-base: #090e0b;
+    --bg-surface: #101612;
+    --bg-surface-raised: #151d18;
+    --bg-surface-hover: #1b2620;
+    --bg-surface-alt: #121a15;
+
+    --primary: #10b981;
+    --primary-light: #34d399;
+    --primary-dark: #059669;
+    --primary-glow: rgba(16, 185, 129, 0.22);
+    --primary-subtle: rgba(16, 185, 129, 0.12);
+
+    --gold: #d4af37;
+    --gold-light: #f3d47d;
+    --gold-subtle: rgba(212, 175, 55, 0.15);
+
+    --text-primary: #f2f5f3;
+    --text-secondary: #9da8a2;
+    --text-muted: #69756f;
+    --text-inverse: #090e0b;
+
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.14);
+    --border-focus: rgba(16, 185, 129, 0.5);
+
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px var(--primary-glow);
+}
+
+html[data-theme="dark"] .navbar.scrolled {
+    background: rgba(9, 14, 11, 0.88);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+html[data-theme="dark"] .hero-bg-layer {
+    background-image:
+        radial-gradient(circle at 50% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(9, 14, 11, 0.72) 0%, rgba(9, 14, 11, 0.92) 85%, var(--bg-base) 100%),
+        url("images/hero-bg.webp");
+}
+html[data-theme="dark"] .hero-trust-bar,
+html[data-theme="dark"] .image-badge,
+html[data-theme="dark"] .program-float-card {
+    background: rgba(16, 22, 18, 0.88);
+}
+html[data-theme="dark"] .philosophy-section {
+    background:
+        linear-gradient(rgba(9, 14, 11, 0.86), rgba(9, 14, 11, 0.94)),
+        url("images/foto4.webp") center/cover fixed no-repeat;
+}
+html[data-theme="dark"] .philosophy-card {
+    background: rgba(16, 22, 18, 0.78);
+    border-color: rgba(212, 175, 55, 0.25);
+}
+html[data-theme="dark"] .closing-section {
+    background:
+        linear-gradient(rgba(9, 14, 11, 0.75), rgba(9, 14, 11, 0.94)),
+        url("images/foto7.webp") center/cover fixed no-repeat;
+}
+html[data-theme="dark"] .site-footer {
+    background: #060907;
+}
+html[data-theme="dark"] .toast {
+    background: rgba(16, 22, 18, 0.95);
+}
+html[data-theme="dark"] .btn-outline {
+    background: rgba(255, 255, 255, 0.04);
+}
+html[data-theme="dark"] .btn-primary:hover {
+    background: #ffffff;
+    color: var(--text-inverse);
+}
+html[data-theme="dark"] .nav-menu {
+    background: rgba(14, 20, 16, 0.98);
+}
+@media (min-width: 1025px) {
+    html[data-theme="dark"] .nav-menu {
+        background: transparent;
+    }
+}
+
 /* =====================================================
    2. RESET & ACCESSIBILITY
 ===================================================== */
@@ -398,6 +482,35 @@ section[id], header[id], main[id] {
     font-size: 0.82rem;
 }
 
+/* Theme Toggle Button */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-light);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+.theme-toggle:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+.theme-toggle .icon-sun {
+    display: none;
+}
+html[data-theme="dark"] .theme-toggle .icon-moon {
+    display: none;
+}
+html[data-theme="dark"] .theme-toggle .icon-sun {
+    display: block;
+}
+
 /* Mobile Hamburger Toggle */
 .menu-toggle {
     display: none;
@@ -459,8 +572,8 @@ section[id], header[id], main[id] {
     position: absolute;
     inset: 0;
     background-image: 
-        radial-gradient(circle at 50% 20%, rgba(5, 150, 105, 0.10) 0%, transparent 60%),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.90) 80%, var(--bg-base) 100%),
+        radial-gradient(circle at 50% 25%, rgba(5, 150, 105, 0.08) 0%, transparent 60%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.70) 0%, rgba(255, 255, 255, 0.84) 76%, var(--bg-base) 100%),
         url("images/hero-bg.webp");
     background-position: center 62%;
     background-size: cover;
@@ -1255,11 +1368,45 @@ section[id], header[id], main[id] {
     background: var(--bg-base);
 }
 
+.gallery-filters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.gallery-filter-btn {
+    padding: 9px 18px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-light);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    font-weight: 700;
+    transition: all var(--transition-fast);
+}
+.gallery-filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+.gallery-filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--text-inverse);
+    box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25);
+}
+
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-auto-rows: 270px;
     gap: 16px;
+}
+
+.gallery-item.is-hidden {
+    display: none;
 }
 
 .gallery-item {
@@ -1488,6 +1635,17 @@ section[id], header[id], main[id] {
     font-size: 0.95rem;
     line-height: 1.7;
     margin-bottom: 24px;
+}
+
+.share-action-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.btn-share {
+    width: 100%;
 }
 
 .wa-action-wrap {

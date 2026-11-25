@@ -14,13 +14,13 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="ROMUSHA Road to Jannah — Bersama dalam Kebaikan">
     <meta property="og:description" content="Dari sebuah kebersamaan sederhana, tumbuh wadah rutin berbagi kebahagiaan untuk adik-adik yatim dan dhuafa.">
-    <meta property="og:image" content="images/foto1.webp">
+    <meta property="og:image" content="images/og-cover.jpg">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ROMUSHA Road to Jannah">
     <meta name="twitter:description" content="Wadah kebersamaan pemuda dalam kebaikan dan kebermanfaatan bagi sesama.">
-    <meta name="twitter:image" content="images/foto1.webp">
+    <meta name="twitter:image" content="images/og-cover.jpg">
 
     <link rel="icon" type="image/webp" href="images/logo.webp">
 
@@ -30,7 +30,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 
 <body>
@@ -61,6 +61,23 @@
             </nav>
 
             <div class="nav-actions">
+                <button type="button" class="theme-toggle" id="themeToggle" aria-label="Ganti tema gelap atau terang" title="Ganti tema">
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+
                 <a href="#donation" class="btn btn-nav btn-primary">
                     <span>Salurkan Kebaikan</span>
                     <svg class="btn-icon" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" aria-hidden="true">
@@ -521,9 +538,17 @@
                     <p class="section-subtitle">Setiap potret menyimpan ketulusan, senyum kebahagiaan, dan ikhtiar nyata di jalan kebaikan. Klik foto untuk melihat detail.</p>
                 </div>
 
-                <div class="gallery-grid">
+                <div class="gallery-filters reveal" role="tablist" aria-label="Filter kategori dokumentasi">
+                    <button type="button" class="gallery-filter-btn active" data-filter="all" role="tab" aria-selected="true">Semua</button>
+                    <button type="button" class="gallery-filter-btn" data-filter="berbagi" role="tab" aria-selected="false">Romusha Berbagi</button>
+                    <button type="button" class="gallery-filter-btn" data-filter="kebersamaan" role="tab" aria-selected="false">Kebersamaan</button>
+                    <button type="button" class="gallery-filter-btn" data-filter="penyaluran" role="tab" aria-selected="false">Penyaluran</button>
+                    <button type="button" class="gallery-filter-btn" data-filter="relawan" role="tab" aria-selected="false">Relawan & Kegiatan</button>
+                </div>
+
+                <div class="gallery-grid" id="galleryGrid">
                     <!-- Item 1 (Large) -->
-                    <div class="gallery-item gallery-large reveal" data-index="0" role="button" tabindex="0" aria-label="Buka foto dokumentasi berbagi kebahagiaan">
+                    <div class="gallery-item gallery-large reveal" data-index="0" data-category="berbagi" role="button" tabindex="0" aria-label="Buka foto dokumentasi berbagi kebahagiaan">
                         <img src="images/foto3.webp" alt="Dokumentasi Romusha Berbagi Kebahagiaan" loading="lazy" width="800" height="600">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">ROMUSHA BERBAGI</span>
@@ -533,7 +558,7 @@
                     </div>
 
                     <!-- Item 2 -->
-                    <div class="gallery-item reveal" data-index="1" role="button" tabindex="0" aria-label="Buka foto kebersamaan relawan">
+                    <div class="gallery-item reveal" data-index="1" data-category="kebersamaan" role="button" tabindex="0" aria-label="Buka foto kebersamaan relawan">
                         <img src="images/foto4.webp" alt="Dokumentasi Kebersamaan Relawan Romusha" loading="lazy" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">KEBERSAMAAN</span>
@@ -543,7 +568,7 @@
                     </div>
 
                     <!-- Item 3 -->
-                    <div class="gallery-item reveal" data-index="2" role="button" tabindex="0" aria-label="Buka foto penyerahan santunan">
+                    <div class="gallery-item reveal" data-index="2" data-category="penyaluran" role="button" tabindex="0" aria-label="Buka foto penyerahan santunan">
                         <img src="images/foto5.webp" alt="Dokumentasi Penyerahan Santunan Romusha" loading="lazy" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">PENYALURAN</span>
@@ -553,7 +578,7 @@
                     </div>
 
                     <!-- Item 4 -->
-                    <div class="gallery-item reveal" data-index="3" role="button" tabindex="0" aria-label="Buka foto silaturahmi panti">
+                    <div class="gallery-item reveal" data-index="3" data-category="kebersamaan" role="button" tabindex="0" aria-label="Buka foto silaturahmi panti">
                         <img src="images/foto6.webp" alt="Dokumentasi Silaturahmi Romusha ke Rumah Yatim" loading="lazy" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">SILATURAHMI</span>
@@ -563,7 +588,7 @@
                     </div>
 
                     <!-- Item 5 -->
-                    <div class="gallery-item reveal" data-index="4" role="button" tabindex="0" aria-label="Buka foto jejak kebaikan">
+                    <div class="gallery-item reveal" data-index="4" data-category="berbagi" role="button" tabindex="0" aria-label="Buka foto jejak kebaikan">
                         <img src="images/foto7.webp" alt="Dokumentasi Jejak Kebaikan Romusha Road to Jannah" loading="lazy" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">JEJAK KEBAIKAN</span>
@@ -573,7 +598,7 @@
                     </div>
 
                     <!-- Item 6 (Wide Landscape) -->
-                    <div class="gallery-item gallery-wide reveal" data-index="5" role="button" tabindex="0" aria-label="Buka foto momen kebersamaan kegiatan berbagi">
+                    <div class="gallery-item gallery-wide reveal" data-index="5" data-category="berbagi" role="button" tabindex="0" aria-label="Buka foto momen kebersamaan kegiatan berbagi">
                         <img src="images/foto9.webp" alt="Momen Kebersamaan Kegiatan Romusha Berbagi" loading="lazy" width="800" height="600">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">ROMUSHA BERBAGI</span>
@@ -583,7 +608,7 @@
                     </div>
 
                     <!-- Item 7 -->
-                    <div class="gallery-item reveal" data-index="6" role="button" tabindex="0" aria-label="Buka foto persiapan relawan Romusha">
+                    <div class="gallery-item reveal" data-index="6" data-category="relawan" role="button" tabindex="0" aria-label="Buka foto persiapan relawan Romusha">
                         <img src="images/foto8.webp" alt="Persiapan Relawan Romusha Sebelum Kegiatan" loading="lazy" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">RELAWAN</span>
@@ -593,7 +618,7 @@
                     </div>
 
                     <!-- Item 8 -->
-                    <div class="gallery-item reveal" data-index="7" role="button" tabindex="0" aria-label="Buka foto aktivitas bersama adik-adik">
+                    <div class="gallery-item reveal" data-index="7" data-category="relawan" role="button" tabindex="0" aria-label="Buka foto aktivitas bersama adik-adik">
                         <img src="images/foto10.webp" alt="Dokumentasi Aktivitas Bersama Adik-Adik" loading="lazy" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">KEGIATAN</span>
@@ -603,7 +628,7 @@
                     </div>
 
                     <!-- Item 9 -->
-                    <div class="gallery-item reveal" data-index="8" role="button" tabindex="0" aria-label="Buka foto dokumentasi penyaluran bantuan">
+                    <div class="gallery-item reveal" data-index="8" data-category="penyaluran" role="button" tabindex="0" aria-label="Buka foto dokumentasi penyaluran bantuan">
                         <img src="images/foto11.webp" alt="Dokumentasi Penyaluran Amanah Romusha" loading="lazy" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">PENYALURAN</span>
@@ -613,7 +638,7 @@
                     </div>
 
                     <!-- Item 10 -->
-                    <div class="gallery-item reveal" data-index="9" role="button" tabindex="0" aria-label="Buka foto kebersamaan keluarga besar Romusha">
+                    <div class="gallery-item reveal" data-index="9" data-category="kebersamaan" role="button" tabindex="0" aria-label="Buka foto kebersamaan keluarga besar Romusha">
                         <img src="images/foto12.webp" alt="Dokumentasi Keluarga Besar Romusha Berbagi" loading="lazy" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">KEBERSAMAAN</span>
@@ -623,7 +648,7 @@
                     </div>
 
                     <!-- Item 11 (Wide) -->
-                    <div class="gallery-item gallery-wide reveal" data-index="10" role="button" tabindex="0" aria-label="Buka foto dokumentasi penutup kegiatan berbagi">
+                    <div class="gallery-item gallery-wide reveal" data-index="10" data-category="relawan" role="button" tabindex="0" aria-label="Buka foto dokumentasi penutup kegiatan berbagi">
                         <img src="images/foto13.webp" alt="Dokumentasi Momen Berbagi Romusha Road to Jannah" loading="lazy" width="800" height="600">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">DOKUMENTASI</span>
@@ -722,12 +747,24 @@
                                 </ol>
                             </div>
 
-                            <div class="donation-notice">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
-                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                                    <polyline points="9 12 11 14 15 10"></polyline>
-                                </svg>
-                                <p>Dokumentasi penyaluran donasi dipublikasikan secara terbuka melalui Instagram resmi <a href="https://www.instagram.com/romusha.jannah?utm_source=ig_web_button_share_sheet&vrfl=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="inline-link"><strong>@romusha.jannah</strong></a>.</p>
+                            <div class="share-action-wrap">
+                                <button type="button" class="btn btn-outline btn-share" id="btnShareSite">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+                                        <circle cx="18" cy="5" r="3"></circle>
+                                        <circle cx="6" cy="12" r="3"></circle>
+                                        <circle cx="18" cy="19" r="3"></circle>
+                                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                                    </svg>
+                                    <span>Bagikan Kebaikan</span>
+                                </button>
+                                <div class="donation-notice">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" aria-hidden="true">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                        <polyline points="9 12 11 14 15 10"></polyline>
+                                    </svg>
+                                    <p>Dokumentasi penyaluran donasi dipublikasikan secara terbuka melalui Instagram resmi <a href="https://www.instagram.com/romusha.jannah?utm_source=ig_web_button_share_sheet&vrfl=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="inline-link"><strong>@romusha.jannah</strong></a>.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1049,6 +1086,6 @@
     <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
     <!-- JavaScript -->
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
 </body>
 </html>
