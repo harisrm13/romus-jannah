@@ -56,8 +56,16 @@ document.addEventListener("DOMContentLoaded", function () {
        1. NAVBAR STICKY & SCROLLSPY
     ===================================================== */
     const navbar = document.getElementById("navbar");
+    const scrollProgress = document.getElementById("scrollProgress");
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".nav-menu .nav-link");
+
+    function handleScrollProgress() {
+        if (!scrollProgress) return;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
+        scrollProgress.style.transform = `scaleX(${progress})`;
+    }
 
     function handleNavbarScroll() {
         if (!navbar) return;
@@ -106,11 +114,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.addEventListener("scroll", function () {
+        handleScrollProgress();
         handleNavbarScroll();
         handleScrollSpy();
     }, { passive: true });
 
     // Initial check on load
+    handleScrollProgress();
     handleNavbarScroll();
     handleScrollSpy();
 
