@@ -114,16 +114,16 @@ html[data-theme="dark"] .program-float-card {
 html[data-theme="dark"] .philosophy-section {
     background:
         linear-gradient(rgba(9, 14, 11, 0.86), rgba(9, 14, 11, 0.94)),
-        url("images/foto4.webp") center/cover fixed no-repeat;
+        url("images/foto4.webp") center/cover no-repeat;
 }
 html[data-theme="dark"] .philosophy-card {
-    background: rgba(16, 22, 18, 0.78);
+    background: rgba(16, 22, 18, 0.9);
     border-color: rgba(212, 175, 55, 0.25);
 }
 html[data-theme="dark"] .closing-section {
     background:
         linear-gradient(rgba(9, 14, 11, 0.75), rgba(9, 14, 11, 0.94)),
-        url("images/foto7.webp") center/cover fixed no-repeat;
+        url("images/foto7.webp") center/cover no-repeat;
 }
 html[data-theme="dark"] .site-footer {
     background: #060907;
@@ -260,6 +260,8 @@ section[id], header[id], main[id] {
 .section {
     padding: 120px 0;
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 640px;
 }
 
 .section-header {
@@ -404,9 +406,9 @@ section[id], header[id], main[id] {
 }
 
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-subtle);
     height: 70px;
     box-shadow: 0 8px 28px rgba(15, 31, 23, 0.08);
@@ -598,13 +600,12 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
 
 .hero-glow {
     position: absolute;
-    top: 20%;
+    top: 15%;
     left: 50%;
     transform: translateX(-50%);
-    width: 700px;
-    height: 350px;
-    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.22) 0%, transparent 70%);
-    filter: blur(60px);
+    width: 720px;
+    height: 360px;
+    background: radial-gradient(ellipse at center, rgba(16, 185, 129, 0.16) 0%, transparent 68%);
     z-index: 1;
     pointer-events: none;
 }
@@ -635,7 +636,6 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 24px;
-    backdrop-filter: blur(8px);
 }
 
 .pulse-dot {
@@ -691,8 +691,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
 .hero-trust-bar {
     margin-top: 56px;
     padding: 18px 28px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
     display: inline-flex;
@@ -899,8 +898,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
     left: 24px;
     right: 24px;
     padding: 18px 22px;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.96);
     border-radius: var(--radius-md);
     border: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-sm);
@@ -987,7 +985,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
     padding: 100px 0;
     background: 
         linear-gradient(rgba(255, 255, 255, 0.84), rgba(244, 247, 245, 0.92)),
-        url("images/foto4.webp") center/cover fixed no-repeat;
+        url("images/foto4.webp") center/cover no-repeat;
     position: relative;
 }
 
@@ -996,8 +994,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
     margin: 0 auto;
     text-align: center;
     padding: 70px 50px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid rgba(180, 132, 24, 0.25);
     border-radius: var(--radius-lg);
     box-shadow: 0 20px 50px rgba(15, 31, 23, 0.08);
@@ -1297,8 +1294,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
     left: 24px;
     right: 24px;
     padding: 20px 24px;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(14px);
+    background: rgba(255, 255, 255, 0.96);
     border: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-sm);
     border-radius: var(--radius-md);
@@ -2095,7 +2091,7 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
     padding: 130px 0;
     background: 
         linear-gradient(rgba(255, 255, 255, 0.82), rgba(244, 247, 245, 0.94)),
-        url("images/foto7.webp") center/cover fixed no-repeat;
+        url("images/foto7.webp") center/cover no-repeat;
     position: relative;
     text-align: center;
 }
@@ -2465,10 +2461,9 @@ html[data-theme="dark"] .theme-toggle .icon-sun {
 ===================================================== */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.revealed {
     opacity: 1;

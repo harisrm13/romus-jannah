@@ -44,13 +44,16 @@
     }
     </script>
 
-    <!-- Google Fonts -->
+    <!-- Preload Hero Image -->
+    <link rel="preload" as="image" href="images/hero-bg.webp" fetchpriority="high">
+
+    <!-- Google Fonts (trimmed to used weights) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 
 <body>
@@ -244,7 +247,7 @@
                 <div class="about-grid">
                     <div class="about-media reveal">
                         <div class="image-wrapper">
-                            <img src="images/foto1.webp" alt="Kebersamaan relawan ROMUSHA saat kegiatan berbagi" loading="lazy" width="600" height="700">
+                            <img src="images/foto1.webp" alt="Kebersamaan relawan ROMUSHA saat kegiatan berbagi" loading="lazy" decoding="async" width="600" height="700">
                             <div class="image-badge">
                                 <span class="badge-dot"></span>
                                 <div>
@@ -501,7 +504,7 @@
 
                     <div class="program-media reveal">
                         <div class="program-img-wrap">
-                            <img src="images/foto2.webp" alt="Kegiatan Romusha Berbagi bersama adik-adik yatim" loading="lazy" width="600" height="700">
+                            <img src="images/foto2.webp" alt="Kegiatan Romusha Berbagi bersama adik-adik yatim" loading="lazy" decoding="async" width="600" height="700">
                             <div class="program-float-card">
                                 <span class="tag-status">RUTINITAS BULANAN</span>
                                 <strong>ROMUSHA BERBAGI</strong>
@@ -572,7 +575,7 @@
                 <div class="gallery-grid" id="galleryGrid">
                     <!-- Item 1 (Large) -->
                     <div class="gallery-item gallery-large reveal" data-index="0" data-category="berbagi" role="button" tabindex="0" aria-label="Buka foto dokumentasi berbagi kebahagiaan">
-                        <img src="images/foto3.webp" alt="Dokumentasi Romusha Berbagi Kebahagiaan" loading="lazy" width="800" height="600">
+                        <img src="images/foto3.webp" alt="Dokumentasi Romusha Berbagi Kebahagiaan" loading="lazy" decoding="async" width="800" height="600">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">ROMUSHA BERBAGI</span>
                             <strong class="gallery-caption">Berbagi Kebahagiaan Bersama Adik Yatim</strong>
@@ -582,7 +585,7 @@
 
                     <!-- Item 2 -->
                     <div class="gallery-item reveal" data-index="1" data-category="kebersamaan" role="button" tabindex="0" aria-label="Buka foto kebersamaan relawan">
-                        <img src="images/foto4.webp" alt="Dokumentasi Kebersamaan Relawan Romusha" loading="lazy" width="600" height="450">
+                        <img src="images/foto4.webp" alt="Dokumentasi Kebersamaan Relawan Romusha" loading="lazy" decoding="async" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">KEBERSAMAAN</span>
                             <strong class="gallery-caption">Hangatnya Persaudaraan dalam Kebaikan</strong>
@@ -592,7 +595,7 @@
 
                     <!-- Item 3 -->
                     <div class="gallery-item reveal" data-index="2" data-category="penyaluran" role="button" tabindex="0" aria-label="Buka foto penyerahan santunan">
-                        <img src="images/foto5.webp" alt="Dokumentasi Penyerahan Santunan Romusha" loading="lazy" width="600" height="450">
+                        <img src="images/foto5.webp" alt="Dokumentasi Penyerahan Santunan Romusha" loading="lazy" decoding="async" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">PENYALURAN</span>
                             <strong class="gallery-caption">Senyum & Harapan Baru</strong>
@@ -602,7 +605,7 @@
 
                     <!-- Item 4 -->
                     <div class="gallery-item reveal" data-index="3" data-category="kebersamaan" role="button" tabindex="0" aria-label="Buka foto silaturahmi panti">
-                        <img src="images/foto6.webp" alt="Dokumentasi Silaturahmi Romusha ke Rumah Yatim" loading="lazy" width="600" height="450">
+                        <img src="images/foto6.webp" alt="Dokumentasi Silaturahmi Romusha ke Rumah Yatim" loading="lazy" decoding="async" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">SILATURAHMI</span>
                             <strong class="gallery-caption">Menjalin Ukhuwah & Doa Bersama</strong>
@@ -612,7 +615,7 @@
 
                     <!-- Item 5 -->
                     <div class="gallery-item reveal" data-index="4" data-category="berbagi" role="button" tabindex="0" aria-label="Buka foto jejak kebaikan">
-                        <img src="images/foto7.webp" alt="Dokumentasi Jejak Kebaikan Romusha Road to Jannah" loading="lazy" width="600" height="450">
+                        <img src="images/foto7.webp" alt="Dokumentasi Jejak Kebaikan Romusha Road to Jannah" loading="lazy" decoding="async" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">JEJAK KEBAIKAN</span>
                             <strong class="gallery-caption">Melangkah Terus Menuju Jannah</strong>
@@ -622,7 +625,7 @@
 
                     <!-- Item 6 (Wide Landscape) -->
                     <div class="gallery-item gallery-wide reveal" data-index="5" data-category="berbagi" role="button" tabindex="0" aria-label="Buka foto momen kebersamaan kegiatan berbagi">
-                        <img src="images/foto9.webp" alt="Momen Kebersamaan Kegiatan Romusha Berbagi" loading="lazy" width="800" height="600">
+                        <img src="images/foto9.webp" alt="Momen Kebersamaan Kegiatan Romusha Berbagi" loading="lazy" decoding="async" width="800" height="600">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">ROMUSHA BERBAGI</span>
                             <strong class="gallery-caption">Kebersamaan Hangat di Lokasi Kegiatan</strong>
@@ -632,7 +635,7 @@
 
                     <!-- Item 7 -->
                     <div class="gallery-item reveal" data-index="6" data-category="relawan" role="button" tabindex="0" aria-label="Buka foto persiapan relawan Romusha">
-                        <img src="images/foto8.webp" alt="Persiapan Relawan Romusha Sebelum Kegiatan" loading="lazy" width="600" height="450">
+                        <img src="images/foto8.webp" alt="Persiapan Relawan Romusha Sebelum Kegiatan" loading="lazy" decoding="async" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">RELAWAN</span>
                             <strong class="gallery-caption">Persiapan & Koordinasi Tim di Lapangan</strong>
@@ -642,7 +645,7 @@
 
                     <!-- Item 8 -->
                     <div class="gallery-item reveal" data-index="7" data-category="relawan" role="button" tabindex="0" aria-label="Buka foto aktivitas bersama adik-adik">
-                        <img src="images/foto10.webp" alt="Dokumentasi Aktivitas Bersama Adik-Adik" loading="lazy" width="600" height="450">
+                        <img src="images/foto10.webp" alt="Dokumentasi Aktivitas Bersama Adik-Adik" loading="lazy" decoding="async" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">KEGIATAN</span>
                             <strong class="gallery-caption">Berinteraksi & Berbagi Keceriaan</strong>
@@ -652,7 +655,7 @@
 
                     <!-- Item 9 -->
                     <div class="gallery-item reveal" data-index="8" data-category="penyaluran" role="button" tabindex="0" aria-label="Buka foto dokumentasi penyaluran bantuan">
-                        <img src="images/foto11.webp" alt="Dokumentasi Penyaluran Amanah Romusha" loading="lazy" width="600" height="450">
+                        <img src="images/foto11.webp" alt="Dokumentasi Penyaluran Amanah Romusha" loading="lazy" decoding="async" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">PENYALURAN</span>
                             <strong class="gallery-caption">Menyampaikan Amanah dengan Tulus</strong>
@@ -662,7 +665,7 @@
 
                     <!-- Item 10 -->
                     <div class="gallery-item reveal" data-index="9" data-category="kebersamaan" role="button" tabindex="0" aria-label="Buka foto kebersamaan keluarga besar Romusha">
-                        <img src="images/foto12.webp" alt="Dokumentasi Keluarga Besar Romusha Berbagi" loading="lazy" width="600" height="450">
+                        <img src="images/foto12.webp" alt="Dokumentasi Keluarga Besar Romusha Berbagi" loading="lazy" decoding="async" width="600" height="450">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">KEBERSAMAAN</span>
                             <strong class="gallery-caption">Bersama dalam Langkah Kebaikan</strong>
@@ -672,7 +675,7 @@
 
                     <!-- Item 11 (Wide) -->
                     <div class="gallery-item gallery-wide reveal" data-index="10" data-category="relawan" role="button" tabindex="0" aria-label="Buka foto dokumentasi penutup kegiatan berbagi">
-                        <img src="images/foto13.webp" alt="Dokumentasi Momen Berbagi Romusha Road to Jannah" loading="lazy" width="800" height="600">
+                        <img src="images/foto13.webp" alt="Dokumentasi Momen Berbagi Romusha Road to Jannah" loading="lazy" decoding="async" width="800" height="600">
                         <div class="gallery-overlay">
                             <span class="gallery-cat">DOKUMENTASI</span>
                             <strong class="gallery-caption">Jejak Kebaikan untuk Sesama</strong>
@@ -707,7 +710,7 @@
                             </div>
 
                             <button type="button" class="qris-poster-btn" id="qrisPosterBtn" aria-label="Perbesar poster QRIS resmi ROMUSHA Road to Jannah">
-                                <img src="images/qris-romusha.jpg" alt="QRIS Resmi Romusha Road to Jannah, Organisasi — NMID ID1026632994681" class="qris-poster-img" loading="lazy">
+                                <img src="images/qris-romusha.jpg" alt="QRIS Resmi Romusha Road to Jannah, Organisasi — NMID ID1026632994681" class="qris-poster-img" loading="lazy" decoding="async">
                                 <span class="qris-poster-hint">Klik gambar untuk memperbesar</span>
                             </button>
 
@@ -974,7 +977,7 @@
 
                     <div class="contact-brand-card reveal">
                         <div class="brand-card-inner">
-                            <img src="images/logo.webp" alt="ROMUSHA Road to Jannah" class="brand-card-logo" width="110" height="110" loading="lazy">
+                            <img src="images/logo.webp" alt="ROMUSHA Road to Jannah" class="brand-card-logo" width="110" height="110" loading="lazy" decoding="async">
                             <h3 class="brand-card-title">ROMUSHA</h3>
                             <span class="brand-card-sub">ROAD TO JANNAH</span>
                             <div class="brand-card-line" aria-hidden="true"></div>
@@ -992,7 +995,7 @@
             <div class="closing-overlay" aria-hidden="true"></div>
             <div class="container">
                 <div class="closing-content reveal">
-                    <img src="images/logo.webp" alt="ROMUSHA Logo" class="closing-logo" width="70" height="70" loading="lazy">
+                    <img src="images/logo.webp" alt="ROMUSHA Logo" class="closing-logo" width="70" height="70" loading="lazy" decoding="async">
                     <p class="closing-verse">Dari sebuah perkumpulan, lahir sebuah kepedulian.</p>
                     <p class="closing-verse">Dari kebersamaan, tumbuh sebuah kebermanfaatan.</p>
                     <p class="closing-verse">Dan dari setiap kebaikan, kami terus melangkah menuju Jannah.</p>
@@ -1014,7 +1017,7 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <a href="#home" class="footer-logo-link">
-                        <img src="images/logo.webp" alt="ROMUSHA Logo" width="40" height="40" loading="lazy">
+                        <img src="images/logo.webp" alt="ROMUSHA Logo" width="40" height="40" loading="lazy" decoding="async">
                         <div>
                             <strong>ROMUSHA</strong>
                             <span>ROAD TO JANNAH</span>
@@ -1109,6 +1112,6 @@
     <div class="toast-container" id="toastContainer" aria-live="polite"></div>
 
     <!-- JavaScript -->
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=5"></script>
 </body>
 </html>

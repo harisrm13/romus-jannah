@@ -53,60 +53,62 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       1. NAVBAR STICKY & SCROLLSPY
+       1. NAVBAR STICKY, PROGRESS BAR, BACK-TO-TOP & SCROLLSPY (rAF-THROTTLED)
     ===================================================== */
     const navbar = document.getElementById("navbar");
     const scrollProgress = document.getElementById("scrollProgress");
+    const backToTop = document.getElementById("backToTop");
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".nav-menu .nav-link");
+    const navSectionIds = new Set(
+        Array.from(navLinks).map(function (link) {
+            return link.getAttribute("href").replace(/^#/, "");
+        })
+    );
 
-    function handleScrollProgress() {
-        if (!scrollProgress) return;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = docHeight > 0 ? Math.min(Math.max(window.scrollY / docHeight, 0), 1) : 0;
-        scrollProgress.style.transform = `scaleX(${progress})`;
+    let cachedSectionOffsets = [];
+    let cachedMaxScroll = 0;
+
+    function updateScrollMetrics() {
+        cachedMaxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
+        cachedSectionOffsets = Array.from(sections)
+            .filter(function (s) { return navSectionIds.has(s.getAttribute("id")); })
+            .map(function (s) { return { id: s.getAttribute("id"), top: s.offsetTop }; });
     }
 
-    function handleNavbarScroll() {
-        if (!navbar) return;
-        if (window.scrollY > 40) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-    }
+    let scrollTicking = false;
 
-    function handleScrollSpy() {
-        const scrollPosition = window.scrollY + 140;
-        const navSectionIds = new Set(
-            Array.from(navLinks).map(function (link) {
-                return link.getAttribute("href").replace(/^#/, "");
-            })
-        );
+    function onScrollFrame() {
+        scrollTicking = false;
+        const y = window.scrollY;
 
-        let activeSectionId = null;
-
-        sections.forEach(function (section) {
-            const sectionId = section.getAttribute("id");
-            if (!navSectionIds.has(sectionId)) return;
-
-            const sectionTop = section.offsetTop;
-            if (scrollPosition >= sectionTop) {
-                activeSectionId = sectionId;
-            }
-        });
-
-        // Highlight last nav item when near the bottom of the page
-        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 40) {
-            const navSectionList = Array.from(sections).filter(function (s) {
-                return navSectionIds.has(s.getAttribute("id"));
-            });
-            if (navSectionList.length > 0) {
-                activeSectionId = navSectionList[navSectionList.length - 1].getAttribute("id");
-            }
+        if (scrollProgress) {
+            const progress = cachedMaxScroll > 0 ? Math.min(Math.max(y / cachedMaxScroll, 0), 1) : 0;
+            scrollProgress.style.transform = `scaleX(${progress})`;
         }
 
-        if (activeSectionId) {
+        if (navbar) {
+            navbar.classList.toggle("scrolled", y > 40);
+        }
+
+        if (backToTop) {
+            backToTop.classList.toggle("active", y > 350);
+        }
+
+        if (cachedSectionOffsets.length > 0) {
+            const scrollPosition = y + 140;
+            let activeSectionId = cachedSectionOffsets[0].id;
+
+            for (let i = 0; i < cachedSectionOffsets.length; i++) {
+                if (scrollPosition >= cachedSectionOffsets[i].top) {
+                    activeSectionId = cachedSectionOffsets[i].id;
+                }
+            }
+
+            if (cachedMaxScroll > 0 && y >= cachedMaxScroll - 40) {
+                activeSectionId = cachedSectionOffsets[cachedSectionOffsets.length - 1].id;
+            }
+
             navLinks.forEach(function (link) {
                 link.classList.toggle("active", link.getAttribute("href") === "#" + activeSectionId);
             });
@@ -114,15 +116,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.addEventListener("scroll", function () {
-        handleScrollProgress();
-        handleNavbarScroll();
-        handleScrollSpy();
+        if (!scrollTicking) {
+            scrollTicking = true;
+            window.requestAnimationFrame(onScrollFrame);
+        }
     }, { passive: true });
 
-    // Initial check on load
-    handleScrollProgress();
-    handleNavbarScroll();
-    handleScrollSpy();
+    window.addEventListener("resize", function () {
+        updateScrollMetrics();
+        onScrollFrame();
+    }, { passive: true });
+
+    window.addEventListener("load", function () {
+        updateScrollMetrics();
+        onScrollFrame();
+    });
+
+    // Initial check on DOM ready
+    updateScrollMetrics();
+    onScrollFrame();
 
 
     /* =====================================================
@@ -520,19 +532,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       7. BACK TO TOP BUTTON
+       7. BACK TO TOP BUTTON CLICK
     ===================================================== */
-    const backToTop = document.getElementById("backToTop");
-
-    window.addEventListener("scroll", function () {
-        if (!backToTop) return;
-        if (window.scrollY > 350) {
-            backToTop.classList.add("active");
-        } else {
-            backToTop.classList.remove("active");
-        }
-    }, { passive: true });
-
     if (backToTop) {
         backToTop.addEventListener("click", function () {
             window.scrollTo({
